@@ -25,6 +25,8 @@ var TRIVIAL_CHARS = "1234567890１２３４５６７８９０ー＝。「」、�
     "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン" +
     "ガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポ";
 
+var observer;
+
 function getKnownKanji(kklcLevel, additional) {
     //var knownKanji = "六車後分早森式取十貝七水首言中山体午生前事地木刀三受二光円月男内四転念画入部北集母他千作八行上切糸信込口広話全道子金通的九家女倍細五文定自雨安牛約意工力曜付比青今和足白電人案手土休海本目洗豆田音書最長耳小皿顔交好朝両万米市先気会成代近無発形国明以別百物年私父頭活大丸立法回学伝肉川方池走校林不化当去見正字者火下思出毎王産心高元一進花日用予合東公豚語同止性";
     return KKLC_KANJI.substring(0, kklcLevel) + TRIVIAL_CHARS + additional;
@@ -112,7 +114,7 @@ function initObserver(knownKanji) {
         }
     };
 
-    let observer = new MutationObserver(callback);
+    observer = new MutationObserver(callback);
     observer.observe(targetNode, config);
 }
 
@@ -129,10 +131,29 @@ function initAnki() {
 
 function initChrome() {
     log("init chrome");
-    chrome.storage.sync.get({ kklcLevel: 0, additionalKanji: "" }, function (data) {
+    let knownKanji;
+    chrome.storage.sync.get({ kklcLevel: 0, additionalKanji: "", furiganaHidden: true }, function (data) {
         log(data);
-        let knownKanji = getKnownKanji(data.kklcLevel, data.additionalKanji);
-        initObserver(knownKanji);
+        knownKanji = getKnownKanji(data.kklcLevel, data.additionalKanji);
+        if(data.furiganaHidden) {
+            initObserver(knownKanji);
+        }
+    });
+
+    chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+        if(request.hasOwnProperty("toggleFurigana")) {
+            log("toggleFurigana");
+            if(request.toggleFurigana) {
+                initObserver(knownKanji);
+            } else {
+                observer.disconnect();
+                let nodes = document.querySelectorAll(".hiddenFurigana");
+                for(let i = 0; i < nodes.length; i++) {
+                    nodes[i].classList.remove("hiddenFurigana");
+                }
+            }
+            sendResponse(true);
+        }
     });
 }
 

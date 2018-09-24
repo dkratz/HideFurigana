@@ -10,14 +10,12 @@ function saveOptions() {
     let kklcLevel = document.getElementById("kklcLevel").value;
     let additionalKanji = document.getElementById("additionalKanji").value
     chrome.storage.sync.set({ kklcLevel: kklcLevel, additionalKanji: additionalKanji }, function () {
-        document.getElementById("status").text = "Options saved."
+        document.getElementById("status").textContent = "Options saved."
     });
 }
 
 (function () {
     "use strict";
-
-    console.log("init");
 
     loadOptions();
     document.getElementById("save").addEventListener("click", saveOptions);
