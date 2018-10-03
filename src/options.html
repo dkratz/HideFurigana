@@ -8,15 +8,41 @@
 
 <body>
     <h1>Options</h1>
-    <p>Input known kanji.</p>
-    <label>
-        KKLC Level
-        <input type="number" id="kklcLevel" min="0" max="2300" value="0" />
-    </label><br />
     <label>
         Additional Kanji
         <input type="text" id="additionalKanji" value="" />
     </label><br />
+    <h2>Kanji Sets</h2>
+    <label>
+        JLPT N5
+        <input type="checkbox" name="kanjiSets" value="jlpt5" />
+    </label>
+    <label>
+        JLPT N4
+        <input type="checkbox" name="kanjiSets" value="jlpt4" />
+    </label>
+    <label>
+        JLPT N3
+        <input type="checkbox" name="kanjiSets" value="jlpt3" />
+    </label>
+    <label>
+        JLPT N2
+        <input type="checkbox" name="kanjiSets" value="jlpt2" />
+    </label>
+    <label>
+        JLPT N1
+        <input type="checkbox" name="kanjiSets" value="jlpt1" />
+    </label>
+
+    <h2>Kanji Sets Level:</h2>
+    <label>
+        KKLC
+        <input type="number" class="kanjiSetsLevel" data-name="kklc" min="0" max="2300" value="0" />
+    </label><br />
+    <label>
+        RTK
+        <input type="number" class="kanjiSetsLevel" data-name="rtk" min="0" max="2200" value="0" />
+    </label>
     <div id="status"></div>
     <button id="save">Save</button>
 </body>
