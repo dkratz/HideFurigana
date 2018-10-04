@@ -6,12 +6,10 @@ function getCheckedCheckboxesFor(checkboxName) {
     return values;
 }
 
-var log = chrome.extension.getBackgroundPage().console.log;
-
 function loadOptions() {
-    log("loadOptions");
+    console.log("loadOptions");
     chrome.storage.sync.get({ additionalKanji: "", kanjiSets: [], kanjiSetsLevel: {} }, function (data) {
-        log(data);
+        console.log(data);
         document.getElementById("additionalKanji").value = data.additionalKanji;
         //document.getElementById("kklcLevel").value = data.kklcLevel;
         for(let i = 0; i < data.kanjiSets.length; i++) {
@@ -24,7 +22,7 @@ function loadOptions() {
 }
 
 function saveOptions() {
-    log("saveOptions");
+    console.log("saveOptions");
     let additionalKanji = document.getElementById("additionalKanji").value;
     let kanjiSets = getCheckedCheckboxesFor("kanjiSets");
     let kanjiSetsLevel = {};
@@ -34,7 +32,7 @@ function saveOptions() {
     }
     let options = { additionalKanji: additionalKanji, kanjiSets: kanjiSets, kanjiSetsLevel: kanjiSetsLevel };
     chrome.storage.sync.set(options, function () {
-        log(options);
+        console.log(options);
         document.getElementById("status").textContent = "Options saved."
     });
 }
