@@ -4,13 +4,13 @@ var toggleOnStr = "ON";
 var toggleOffStr = "OFF";
 
 function toggleFurigana(callback) {
-    chrome.storage.sync.get({ furiganaHidden: true }, function (data) {
+    chrome.storage.sync.get({ furiganaHidden: true }, (data) => {
         let newState = !data.furiganaHidden;
-        chrome.storage.sync.set({ furiganaHidden: newState }, function () {
+        chrome.storage.sync.set({ furiganaHidden: newState }, () => {
             // send to all tabs
             chrome.tabs.query({}, function (tabs) {
                 for(let i = 0; i < tabs.length; i++) {
-                    chrome.tabs.sendMessage(tabs[i].id, { toggleFurigana: newState }, function (response) {
+                    chrome.tabs.sendMessage(tabs[i].id, { toggleFurigana: newState }, (response) => {
                         callback(newState)
                     });
                 }
@@ -27,13 +27,13 @@ function toggleButtonString(state) {
     }
 }
 
-document.querySelector("#toggleFurigana").addEventListener("click", function () {
-    toggleFurigana(function (newState) {
+document.querySelector("#toggleFurigana").addEventListener("click", () => {
+    toggleFurigana((newState) => {
         toggleButtonString(newState);
     });
 });
 
-document.querySelector("#openOptions").addEventListener("click", function () {
+document.querySelector("#openOptions").addEventListener("click", () => {
     if(chrome.runtime.openOptionsPage) {
         chrome.runtime.openOptionsPage();
     } else {
@@ -42,7 +42,7 @@ document.querySelector("#openOptions").addEventListener("click", function () {
 });
 
 (function () {
-    chrome.storage.sync.get({ furiganaHidden: true }, function (data) {
+    chrome.storage.sync.get({ furiganaHidden: true }, (data) => {
         toggleButtonString(data.furiganaHidden);
     });
 })();

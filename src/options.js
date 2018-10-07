@@ -1,6 +1,6 @@
 function getCheckedCheckboxesFor(checkboxName) {
     var checkboxes = document.querySelectorAll('input[name="' + checkboxName + '"]:checked'), values = [];
-    Array.prototype.forEach.call(checkboxes, function (el) {
+    Array.prototype.forEach.call(checkboxes, (el) => {
         values.push(el.value);
     });
     return values;
@@ -8,7 +8,7 @@ function getCheckedCheckboxesFor(checkboxName) {
 
 function loadOptions() {
     console.log("loadOptions");
-    chrome.storage.sync.get({ additionalKanji: "", kanjiSets: [], kanjiSetsLevel: {} }, function (data) {
+    chrome.storage.sync.get({ additionalKanji: "", kanjiSets: [], kanjiSetsLevel: {} }, (data) => {
         console.log(data);
         document.getElementById("additionalKanji").value = data.additionalKanji;
         //document.getElementById("kklcLevel").value = data.kklcLevel;
@@ -31,7 +31,7 @@ function saveOptions() {
         kanjiSetsLevel[nodes[i].dataset.name] = nodes[i].value;
     }
     let options = { additionalKanji: additionalKanji, kanjiSets: kanjiSets, kanjiSetsLevel: kanjiSetsLevel };
-    chrome.storage.sync.set(options, function () {
+    chrome.storage.sync.set(options, () => {
         console.log(options);
         document.getElementById("status").textContent = "Options saved."
     });
