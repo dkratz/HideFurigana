@@ -3,20 +3,46 @@
 
 <head>
     <style>
-        /*button {
-            height: 50px;
-            width: 100px;
-            outline: none;
-        }*/
         button {
-            width: 100px;
-            margin: 5px;
+            width: 8rem;
+            padding: .5rem;
+            margin: .5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            font-weight: bold;
+            outline: 0;
+        }
+
+        button:hover {
+            background-color: #eee;
+            cursor: pointer;
+        }
+
+        #toggleFurigana {
+            color: #fff;
+        }
+
+        #toggleFurigana.on {
+            background-color: #2ECC40;
+        }
+
+        #toggleFurigana.on:hover {
+            background-color: rgb(44, 194, 61);
+        }
+
+        #toggleFurigana.off {
+            background-color: rgb(226, 61, 61);
+        }
+
+        #toggleFurigana.off:hover {
+            background-color: rgb(214, 40, 40);
         }
     </style>
 </head>
 
 <body>
-    <button id="toggleFurigana">Toggle: ?</button><br />
+    <button id="toggleFurigana">?</button><br />
     <button id="openOptions">Options</button>
     <script src="popup.js"></script>
 </body>

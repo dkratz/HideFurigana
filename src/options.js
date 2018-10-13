@@ -1,4 +1,4 @@
-function getCheckedCheckboxesFor(checkboxName) {
+function getCheckedCheckboxes(checkboxName) {
     var checkboxes = document.querySelectorAll('input[name="' + checkboxName + '"]:checked'), values = [];
     Array.prototype.forEach.call(checkboxes, (el) => {
         values.push(el.value);
@@ -8,9 +8,9 @@ function getCheckedCheckboxesFor(checkboxName) {
 
 function loadOptions() {
     console.log("loadOptions");
-    chrome.storage.sync.get({ additionalKanji: "", kanjiSets: [], kanjiSetsLevel: {} }, (data) => {
+    chrome.storage.sync.get({ extraKanji: "", kanjiSets: [], kanjiSetsLevel: {} }, (data) => {
         console.log(data);
-        document.getElementById("additionalKanji").value = data.additionalKanji;
+        document.getElementById("extraKanji").value = data.extraKanji;
         //document.getElementById("kklcLevel").value = data.kklcLevel;
         for(let i = 0; i < data.kanjiSets.length; i++) {
             document.querySelector("input[name='kanjiSets'][value='" + data.kanjiSets[i] + "']").checked = true;
@@ -23,17 +23,16 @@ function loadOptions() {
 
 function saveOptions() {
     console.log("saveOptions");
-    let additionalKanji = document.getElementById("additionalKanji").value;
-    let kanjiSets = getCheckedCheckboxesFor("kanjiSets");
+    let extraKanji = document.getElementById("extraKanji").value;
+    let kanjiSets = getCheckedCheckboxes("kanjiSets");
     let kanjiSetsLevel = {};
     let nodes = document.querySelectorAll(".kanjiSetsLevel");
     for(let i = 0; i < nodes.length; i++) {
         kanjiSetsLevel[nodes[i].dataset.name] = nodes[i].value;
     }
-    let options = { additionalKanji: additionalKanji, kanjiSets: kanjiSets, kanjiSetsLevel: kanjiSetsLevel };
+    let options = { extraKanji: extraKanji, kanjiSets: kanjiSets, kanjiSetsLevel: kanjiSetsLevel };
     chrome.storage.sync.set(options, () => {
         console.log(options);
-        document.getElementById("status").textContent = "Options saved."
     });
 }
 
@@ -41,5 +40,8 @@ function saveOptions() {
     "use strict";
 
     loadOptions();
-    document.getElementById("save").addEventListener("click", saveOptions);
+    let inputs = document.querySelectorAll("input");
+    for(let i = 0; i < inputs.length; i++) {
+        inputs[i].addEventListener("input", saveOptions);
+    }
 })();

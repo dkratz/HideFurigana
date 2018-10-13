@@ -40,7 +40,7 @@ const KANJI_SETS_LEVEL = {
 var observer;
 
 function getKnownKanji(config) {
-    let result = TRIVIAL_CHARS + config.additionalKanji;
+    let result = TRIVIAL_CHARS + config.extraKanji;
     if(config.hasOwnProperty("kanjiSets") && config.kanjiSets.constructor === Array) {
         for(let i = 0; i < config.kanjiSets.length; i++) {
             if(KANJI_SETS.hasOwnProperty(config.kanjiSets[i])) {
@@ -137,14 +137,14 @@ function initAnki() {
     // stored in separate variables to be easily accesible to scripts
     let ankiKklcLevel = 0;
     let ankiRtkLevel = 0;
-    let ankiAdditional = "";
+    let ankiextra = "";
     let ankiConfig = {
         kanjiSets: [],
         kanjiSetsLevel: {
             kklc: ankiKklcLevel,
             rtk: ankiRtkLevel
         },
-        additionalKanji: ankiAdditional
+        extraKanji: ankiextra
     }
     let knownKanji = getKnownKanji(ankiConfig);
     let nodes = document.querySelectorAll(".hideFurigana");
@@ -156,7 +156,7 @@ function initAnki() {
 function initChrome() {
     log("init chrome");
     let knownKanji;
-    chrome.storage.sync.get({ additionalKanji: "", kanjiSets: [], kanjiSetsLevel: {}, furiganaHidden: true }, (data) => {
+    chrome.storage.sync.get({ extraKanji: "", kanjiSets: [], kanjiSetsLevel: {}, furiganaHidden: true }, (data) => {
         log(data);
         knownKanji = getKnownKanji(data);
         if(data.furiganaHidden) {

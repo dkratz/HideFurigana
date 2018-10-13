@@ -1,7 +1,7 @@
 "use strict";
 
-var toggleOnStr = "ON";
-var toggleOffStr = "OFF";
+const TOGGLE_ON_STR = "ON";
+const TOGGLE_OFF_STR = "OFF";
 
 function toggleFurigana(callback) {
     chrome.storage.sync.get({ furiganaHidden: true }, (data) => {
@@ -19,17 +19,22 @@ function toggleFurigana(callback) {
     });
 }
 
-function toggleButtonString(state) {
+function toggleButtonStyle(state) {
+    let button = document.querySelector("#toggleFurigana");
     if(state) {
-        document.querySelector("#toggleFurigana").textContent = "Toggle: " + toggleOnStr;
+        button.textContent = TOGGLE_ON_STR;
+        button.classList.add("on");
+        button.classList.remove("off");
     } else {
-        document.querySelector("#toggleFurigana").textContent = "Toggle: " + toggleOffStr;
+        button.textContent = TOGGLE_OFF_STR;
+        button.classList.add("off");
+        button.classList.remove("on");
     }
 }
 
 document.querySelector("#toggleFurigana").addEventListener("click", () => {
     toggleFurigana((newState) => {
-        toggleButtonString(newState);
+        toggleButtonStyle(newState);
     });
 });
 
@@ -43,6 +48,6 @@ document.querySelector("#openOptions").addEventListener("click", () => {
 
 (function () {
     chrome.storage.sync.get({ furiganaHidden: true }, (data) => {
-        toggleButtonString(data.furiganaHidden);
+        toggleButtonStyle(data.furiganaHidden);
     });
 })();
