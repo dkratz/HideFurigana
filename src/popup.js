@@ -1,5 +1,7 @@
 "use strict";
 
+import { toggleIcon } from "./toggleIcon.js";
+
 const TOGGLE_ON_STR = "ON";
 const TOGGLE_OFF_STR = "OFF";
 
@@ -11,7 +13,7 @@ function toggleFurigana(callback) {
             chrome.tabs.query({}, function (tabs) {
                 for(let i = 0; i < tabs.length; i++) {
                     chrome.tabs.sendMessage(tabs[i].id, { toggleFurigana: newState }, (response) => {
-                        callback(newState)
+                        callback(newState);
                     });
                 }
             });
@@ -35,6 +37,7 @@ function toggleButtonStyle(state) {
 document.querySelector("#toggleFurigana").addEventListener("click", () => {
     toggleFurigana((newState) => {
         toggleButtonStyle(newState);
+        toggleIcon(newState);
     });
 });
 
@@ -49,5 +52,6 @@ document.querySelector("#openOptions").addEventListener("click", () => {
 (function () {
     chrome.storage.sync.get({ furiganaHidden: true }, (data) => {
         toggleButtonStyle(data.furiganaHidden);
+        toggleIcon(data.furiganaHidden);
     });
 })();

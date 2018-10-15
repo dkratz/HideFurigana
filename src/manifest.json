@@ -18,6 +18,9 @@
             ]
         }
     ],
+    "background": {
+        "page": "background.html"
+    },
     "browser_action": {
         "default_popup": "popup.html"
     },
@@ -25,5 +28,8 @@
     "options_ui": {
         "page": "options.html",
         "open_in_tab": true
+    },
+    "icons": {
+        "16": "assets/icon16.png"
     }
 }
