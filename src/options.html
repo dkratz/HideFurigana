@@ -3,8 +3,9 @@
 
 <head>
     <style>
-        body {
-            padding-left: 10px;
+        #contentContainer {
+            width: 340px;
+            margin: 0 auto;
         }
 
         .optionValue label {
@@ -20,7 +21,7 @@
         .optionValue input {
             border-radius: 4px;
             border: 1px solid #ddd;
-            width: 80px;
+            width: 85px;
             padding: .5rem;
         }
 
@@ -70,6 +71,10 @@
             background-color: #eee;
         }
 
+        #extraKanji {
+            width: 206px;
+        }
+
         button {
             width: 80px;
             padding: .5rem;
@@ -87,47 +92,50 @@
 </head>
 
 <body>
-    <h1>HideFurigana Options</h1>
-    <p class="optionValue">
-        <label for="kanjiSetsLevelKKLC">KKLC</label>
-        <input id="kanjiSetsLevelKKLC" type="number" class="kanjiSetsLevel" data-name="kklc" min="0" max="2300" value="0" />
-    </p>
-    <p class="optionValue">
-        <label for="kanjiSetsLevelRTK">RTK</label>
-        <input id="kanjiSetsLevelRTK" type="number" class="kanjiSetsLevel" data-name="rtk" min="0" max="2200" value="0" />
-    </p>
-    <div class="kanjiSet">
-        <span class="kanjiSetName">JLPT</span>
+    <div id="contentContainer">
+        <h1>HideFurigana Options</h1>
+        <p class="optionValue">
+            <label for="kanjiSetsLevelKKLC">KKLC</label>
+            <input id="kanjiSetsLevelKKLC" type="number" class="kanjiSetsLevel" data-name="kklc" min="0" max="2300"
+                value="0" />
+        </p>
+        <p class="optionValue">
+            <label for="kanjiSetsLevelRTK">RTK</label>
+            <input id="kanjiSetsLevelRTK" type="number" class="kanjiSetsLevel" data-name="rtk" min="0" max="2200" value="0" />
+        </p>
+        <div class="kanjiSet">
+            <span class="kanjiSetName">JLPT</span>
 
-        <ul>
-            <li class="setValue">
-                <input type="checkbox" id="jlpt5" name="kanjiSets" value="jlpt5" />
-                <label for="jlpt5">N5</label>
-            </li>
-            <li class="setValue">
-                <input type="checkbox" id="jlpt4" name="kanjiSets" value="jlpt4" />
-                <label for="jlpt4">N4</label>
-            </li>
-            <li class="setValue">
-                <input type="checkbox" id="jlpt3" name="kanjiSets" value="jlpt3" />
-                <label for="jlpt3">N3</label>
-            </li>
-            <li class="setValue">
-                <input type="checkbox" id="jlpt2" name="kanjiSets" value="jlpt2" />
-                <label for="jlpt2">N2</label>
-            </li>
-            <li class="setValue">
-                <input type="checkbox" id="jlpt1" name="kanjiSets" value="jlpt1" />
-                <label for="jlpt1">N1</label>
-            </li>
-        </ul>
+            <ul>
+                <li class="setValue">
+                    <input type="checkbox" id="jlpt5" name="kanjiSets" value="jlpt5" />
+                    <label for="jlpt5">N5</label>
+                </li>
+                <li class="setValue">
+                    <input type="checkbox" id="jlpt4" name="kanjiSets" value="jlpt4" />
+                    <label for="jlpt4">N4</label>
+                </li>
+                <li class="setValue">
+                    <input type="checkbox" id="jlpt3" name="kanjiSets" value="jlpt3" />
+                    <label for="jlpt3">N3</label>
+                </li>
+                <li class="setValue">
+                    <input type="checkbox" id="jlpt2" name="kanjiSets" value="jlpt2" />
+                    <label for="jlpt2">N2</label>
+                </li>
+                <li class="setValue">
+                    <input type="checkbox" id="jlpt1" name="kanjiSets" value="jlpt1" />
+                    <label for="jlpt1">N1</label>
+                </li>
+            </ul>
+        </div>
+
+        <p class="optionValue">
+            <label for="extraKanji">Extra Kanji</label>
+            <input type="text" id="extraKanji" value="" />
+        </p>
     </div>
-
-    <p class="optionValue">
-        <label for="extraKanji">Extra Kanji</label>
-        <input type="text" id="extraKanji" value="" />
-    </p>
+    <script src="options.js"></script>
 </body>
-<script src="options.js"></script>
 
 </html>
