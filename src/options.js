@@ -7,9 +7,7 @@ function getCheckedCheckboxes(checkboxName) {
 }
 
 function loadOptions() {
-    console.log("loadOptions");
     chrome.storage.sync.get({ extraKanji: "", kanjiSets: [], kanjiSetsLevel: {} }, (data) => {
-        console.log(data);
         document.getElementById("extraKanji").value = data.extraKanji;
         //document.getElementById("kklcLevel").value = data.kklcLevel;
         for(let i = 0; i < data.kanjiSets.length; i++) {
@@ -22,7 +20,6 @@ function loadOptions() {
 }
 
 function saveOptions() {
-    console.log("saveOptions");
     let extraKanji = document.getElementById("extraKanji").value;
     let kanjiSets = getCheckedCheckboxes("kanjiSets");
     let kanjiSetsLevel = {};
@@ -31,9 +28,7 @@ function saveOptions() {
         kanjiSetsLevel[nodes[i].dataset.name] = nodes[i].value;
     }
     let options = { extraKanji: extraKanji, kanjiSets: kanjiSets, kanjiSetsLevel: kanjiSetsLevel };
-    chrome.storage.sync.set(options, () => {
-        console.log(options);
-    });
+    chrome.storage.sync.set(options, () => { });
 }
 
 (function () {
